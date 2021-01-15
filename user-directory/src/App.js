@@ -1,51 +1,14 @@
-import React, { useState } from "react";
-import {data} from './data'
-import './App.css';
-import Body from './components/Body'
-import SortBy from './components/SortBy';
+import React from 'react';
 
+import Header from './components/Header.jsx'
+import employees from './employees.json'
+import Employee from './components/Employee.jsx';
 
-
-
-
-function App() {
- 
- const [ inputValue, setInputValue ] = useState('');
- const [dataValue, setDataValue] = useState(data)
- const [sortValue, setSortValue] = useState('')
-
- const handleInputChange = e => {
-   setDataValue(data)
-   setInputValue(e.target.value)
- };
- 
- const handleClick = e => {
-  e.preventDefault();
-  if(inputValue) {
-    setDataValue(dataValue.filter(person => {
-        return person.name.toLowerCase().includes(inputValue.toLowerCase().trim())
-    }))
-  setInputValue('');
-  }
-};
-
-
-return (
-  <>
-    <Heading title="Employee Directory"/>
-    <main>
-      <SearchBar inputValue={inputValue} handleInputChange={handleInputChange} handleClick={handleClick} />
-      <SortBy sortCategories={sortCategories} sortValue={sortValue} handleSortValueChange={handleSortValueChange}/>
-      {dataValue.length !== 0 ? <Table data={dataValue}/> : <h2 style={{textAlign: 'center', color:"#e54"}}>No employee found with that name.</h2> }    
-    </main>
-  </>
-);
+export default function App() {
+  return (
+    <div>
+      <Header />
+      <Employee employees={employees} />
+    </div >
+  );
 }
-  // return (
-  //   <div className="App">
-  //   <Body />
-  // </div>
-  // );
-
-
-export default App;
